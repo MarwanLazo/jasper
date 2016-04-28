@@ -1,10 +1,13 @@
 package com.jasperreport.shiro;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Properties;
 
+import javax.swing.JButton;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -79,11 +82,28 @@ public class ShiroMainTest {
 		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
 
 		// Don't know about the formatter, but there it is...
-		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+		final JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 		frame.setLocationRelativeTo(null);
 		JPanel panel = new JPanel();
 		panel.add(datePicker);
 		frame.getContentPane().add(panel);
+		JButton button = new JButton("date");
+		button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					System.out.println(datePicker.getJFormattedTextField().getText());
+					String DATE_PATTERN = "yyyy-MM-dd";
+					SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN);
+					System.out.println(dateFormat.parse(datePicker.getJFormattedTextField().getText()));
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		panel.add(button);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
