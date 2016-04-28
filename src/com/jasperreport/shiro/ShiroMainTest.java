@@ -2,12 +2,16 @@ package com.jasperreport.shiro;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Properties;
+import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -104,6 +108,28 @@ public class ShiroMainTest {
 			}
 		});
 		panel.add(button);
+
+		// define items in a vector collection:
+		Vector<String> languages = new Vector<String>();
+		languages.addElement("English");
+		languages.addElement("French");
+		languages.addElement("Spanish");
+		languages.addElement("Japanese");
+		languages.addElement("Chinese");
+
+		// create a combo box with the given vector
+		JComboBox<String> comboLanguage = new JComboBox<String>(languages);
+		comboLanguage.addItemListener(new ItemListener() {
+
+			public void itemStateChanged(ItemEvent event) {
+				if (event.getStateChange() == ItemEvent.SELECTED) {
+					Object item = event.getItem();
+					System.out.println(item);
+				}
+			}
+		});
+		panel.add(comboLanguage);
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
